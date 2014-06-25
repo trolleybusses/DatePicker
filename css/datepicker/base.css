@@ -176,3 +176,19 @@ div.datepicker td.datepickerNotInMonth a:hover span {
 div.datepicker tbody.datepickerDays td.datepickerNotInMonth:hover {
   background-color: transparent;
 }
+
+div.datepicker tbody.datepickerDays td.weekNumber {
+  font-weight: bold;
+  font-size: 8pt;
+  border-bottom: none;
+  padding: 6px;
+  background: none;
+}
+
+div.datepicker tbody.datepickerDays td.weekNumber:hover {
+  background: none;
+}
+
+td.weekHidden, th.weekHidden {
+  display: none;
+}
