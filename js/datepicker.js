@@ -32,14 +32,16 @@
         wrapper: '<div class="datepicker"><div class="datepickerBorderT" /><div class="datepickerBorderB" /><div class="datepickerBorderL" /><div class="datepickerBorderR" /><div class="datepickerBorderTL" /><div class="datepickerBorderTR" /><div class="datepickerBorderBL" /><div class="datepickerBorderBR" /><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
         head: [
           '<td class="datepickerBlock">',
-          '<table cellspacing="0" cellpadding="0">',
+          '<table cellspacing="0" cellpadding="0" style="display: inline;">',
             '<thead>',
               '<tr>',
+                '<th class="headerWeek weekHidden"></th>',
                 '<th colspan="7"><a class="datepickerGoPrev" href="#"><span><%=prev%></span></a>',
                 '<a class="datepickerMonth" href="#"><span></span></a>',
                 '<a class="datepickerGoNext" href="#"><span><%=next%></span></a></th>',
               '</tr>',
               '<tr class="datepickerDoW">',
+                '<th class="headerWeek weekHidden"></th>',
                 '<th><span><%=day1%></span></th>',
                 '<th><span><%=day2%></span></th>',
                 '<th><span><%=day3%></span></th>',
@@ -55,6 +57,7 @@
         days: [
           '<tbody class="datepickerDays">',
             '<tr>',
+              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[0].days[6].week%></td>',
               '<td class="<%=weeks[0].days[0].classname%>"><a href="#"><span><%=weeks[0].days[0].text%></span></a></td>',
               '<td class="<%=weeks[0].days[1].classname%>"><a href="#"><span><%=weeks[0].days[1].text%></span></a></td>',
               '<td class="<%=weeks[0].days[2].classname%>"><a href="#"><span><%=weeks[0].days[2].text%></span></a></td>',
@@ -64,6 +67,7 @@
               '<td class="<%=weeks[0].days[6].classname%>"><a href="#"><span><%=weeks[0].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
+              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[1].days[6].week%></td>',
               '<td class="<%=weeks[1].days[0].classname%>"><a href="#"><span><%=weeks[1].days[0].text%></span></a></td>',
               '<td class="<%=weeks[1].days[1].classname%>"><a href="#"><span><%=weeks[1].days[1].text%></span></a></td>',
               '<td class="<%=weeks[1].days[2].classname%>"><a href="#"><span><%=weeks[1].days[2].text%></span></a></td>',
@@ -73,6 +77,7 @@
               '<td class="<%=weeks[1].days[6].classname%>"><a href="#"><span><%=weeks[1].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
+              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[2].days[6].week%></td>',
               '<td class="<%=weeks[2].days[0].classname%>"><a href="#"><span><%=weeks[2].days[0].text%></span></a></td>',
               '<td class="<%=weeks[2].days[1].classname%>"><a href="#"><span><%=weeks[2].days[1].text%></span></a></td>',
               '<td class="<%=weeks[2].days[2].classname%>"><a href="#"><span><%=weeks[2].days[2].text%></span></a></td>',
@@ -82,6 +87,7 @@
               '<td class="<%=weeks[2].days[6].classname%>"><a href="#"><span><%=weeks[2].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
+              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[3].days[6].week%></td>',
               '<td class="<%=weeks[3].days[0].classname%>"><a href="#"><span><%=weeks[3].days[0].text%></span></a></td>',
               '<td class="<%=weeks[3].days[1].classname%>"><a href="#"><span><%=weeks[3].days[1].text%></span></a></td>',
               '<td class="<%=weeks[3].days[2].classname%>"><a href="#"><span><%=weeks[3].days[2].text%></span></a></td>',
@@ -91,6 +97,7 @@
               '<td class="<%=weeks[3].days[6].classname%>"><a href="#"><span><%=weeks[3].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
+              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[4].days[6].week%></td>',
               '<td class="<%=weeks[4].days[0].classname%>"><a href="#"><span><%=weeks[4].days[0].text%></span></a></td>',
               '<td class="<%=weeks[4].days[1].classname%>"><a href="#"><span><%=weeks[4].days[1].text%></span></a></td>',
               '<td class="<%=weeks[4].days[2].classname%>"><a href="#"><span><%=weeks[4].days[2].text%></span></a></td>',
@@ -100,6 +107,7 @@
               '<td class="<%=weeks[4].days[6].classname%>"><a href="#"><span><%=weeks[4].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
+              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[5].days[6].week%></td>',
               '<td class="<%=weeks[5].days[0].classname%>"><a href="#"><span><%=weeks[5].days[0].text%></span></a></td>',
               '<td class="<%=weeks[5].days[1].classname%>"><a href="#"><span><%=weeks[5].days[1].text%></span></a></td>',
               '<td class="<%=weeks[5].days[2].classname%>"><a href="#"><span><%=weeks[5].days[2].text%></span></a></td>',
@@ -134,6 +142,11 @@
         ]
       },
       defaults = {
+        /**
+         * Whether or not to use broadcast calendar mode
+         * Defaults as false
+         */
+        broadcastMode: false,
         /**
          * The currently selected date(s).  This can be: a single date, an array 
          * of two dates (sets a range when 'mode' is 'range'), or an array of
@@ -206,6 +219,10 @@
          *         className: css class name to add to the cell
          */
         onRenderCell: function() { return {} },
+        /**
+         * Invoked after all cells have been rendered
+         */
+        onAfterRender: function() {},
         /* 
          * Callback, invoked when a date is selected, with 'this' referring to
          * the HTMLElement that DatePicker was invoked upon.
@@ -293,6 +310,9 @@
         var options = $(el).data('datepicker');
         var cal = $(el);
         var currentCal = Math.floor(options.calendars/2), date, data, dow, month, cnt = 0, days, indic, indic2, html, tblCal;
+
+        //Hide extra header cells
+        cal.find('thead th.headerWeek').addClass('weekHidden');
         
         cal.find('td>table tbody').remove();
         for(var i = 0; i < options.calendars; i++) {
@@ -337,6 +357,7 @@
             }
             data.weeks[indic].days[indic2] = {
               text: date.getDate(),
+              week: date.getWeekNumber(),
               classname: []
             };
             var today = new Date();
@@ -372,6 +393,23 @@
             if (fromUser.className) {
               data.weeks[indic].days[indic2].classname.push(fromUser.className);
             }
+
+            //If we want to use the broadcast calendar
+            if(options.broadcastMode) {
+              if((date.getMonth() < options.current.getMonth() && date.getFullYear() == options.current.getFullYear()) || date.getFullYear() < options.current.getFullYear()) {
+                if(data.weeks[indic].days[indic2].classname.indexOf('datepickerNotInMonth') !== -1) {
+                  data.weeks[indic].days[indic2].classname.splice(data.weeks[indic].days[indic2].classname.indexOf('datepickerNotInMonth'), 1);
+                  data.weeks[indic].days[indic2].classname.push('datepickerGregPreviousMonth');
+                }
+                if(data.weeks[indic].days[indic2].classname.indexOf('datepickerDisabled') !== -1) {
+                  data.weeks[indic].days[indic2].classname.splice(data.weeks[indic].days[indic2].classname.indexOf('datepickerDisabled'), 1);
+                }
+              } else if(date.getMonth() > options.current.getMonth() || date.getFullYear() > options.current.getFullYear() || date.getMaxDays() - date.getDate() + indic2 < 6) {
+                data.weeks[indic].days[indic2].classname.push('datepickerNotInMonth');
+                // disable clicking of the 'not in month' cells
+                data.weeks[indic].days[indic2].classname.push('datepickerDisabled');
+              }
+            }
             data.weeks[indic].days[indic2].classname = data.weeks[indic].days[indic2].classname.join(' ');
             cnt++;
             date.addDays(1);
@@ -386,6 +424,23 @@
           // datepickerMonths template
           html = tmpl(tpl.months.join(''), data) + html;
           tblCal.append(html);
+        }
+
+        //If we're using a broadcast calendar hide any empty rows that we don't want to see
+        if(options.broadcastMode) {
+          //Show the hidden week header cells
+          $(el).find('th.weekHidden').removeClass('weekHidden');
+          var row = 0;
+          $(el).find('table.datepickerViewDays tbody.datepickerDays tr').each(function() {
+              //Show the week numbers
+              $(this).find('td.weekNumber').removeClass('weekHidden');
+              //Hide rows that shouldn't be in this month
+              if(row > 0 && $(this).find('td').eq(1).hasClass('datepickerNotInMonth')) {
+                  $(this).hide();
+              }
+              row++;
+          });
+          layout(el);
         }
       },
       
@@ -432,6 +487,10 @@
             tmpDate.setDate(d);
           }
           return d - 1;
+        };
+        Date.prototype.getWeekNumber = function(){
+          var onejan = new Date(this.getFullYear(), 0, 1);
+          return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
         };
       },
       
@@ -543,7 +602,7 @@
               // clicked a day cell
                 var val = parseInt(el.text(), 10);
                 tmp.addMonths(tblIndex - currentCal);
-                if (parentEl.hasClass('datepickerNotInMonth')) {
+                if (parentEl.hasClass('datepickerNotInMonth') || parentEl.hasClass('datepickerGregPreviousMonth')) {
                   tmp.addMonths(val > 15 ? -1 : 1);
                 }
                 tmp.setDate(val);
@@ -582,6 +641,7 @@
                     changedRange = !options.lastSel;
                     break;
                   default:
+                    console.log(tmp);
                     options.date = tmp.valueOf();
                     break;
                 }
@@ -979,6 +1039,16 @@
             }
           }
         });
+      },
+
+      setMode: function(mode) {
+        if ($(this).data('datepickerId')) {
+            var cal = $('#' + $(this).data('datepickerId'));
+            var options = cal.data('datepicker');
+            options.broadcastMode = mode;
+            fill(cal);
+            layout(cal);
+        }
       }
     };
   }();  // DatePicker
@@ -991,7 +1061,8 @@
     DatePickerSetDate: DatePicker.setDate,
     DatePickerGetDate: DatePicker.getDate,
     DatePickerClear: DatePicker.clear,
-    DatePickerLayout: DatePicker.fixLayout
+    DatePickerLayout: DatePicker.fixLayout,
+    DatePickerSetMode: DatePicker.setMode
   });
 
   tmpl = function tmpl(str, data){
