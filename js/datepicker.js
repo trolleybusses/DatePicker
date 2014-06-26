@@ -35,13 +35,11 @@
           '<table cellspacing="0" cellpadding="0" style="display: inline;">',
             '<thead>',
               '<tr>',
-                '<th class="headerWeek weekHidden"></th>',
                 '<th colspan="7"><a class="datepickerGoPrev" href="#"><span><%=prev%></span></a>',
                 '<a class="datepickerMonth" href="#"><span></span></a>',
                 '<a class="datepickerGoNext" href="#"><span><%=next%></span></a></th>',
               '</tr>',
               '<tr class="datepickerDoW">',
-                '<th class="headerWeek weekHidden"></th>',
                 '<th><span><%=day1%></span></th>',
                 '<th><span><%=day2%></span></th>',
                 '<th><span><%=day3%></span></th>',
@@ -57,7 +55,6 @@
         days: [
           '<tbody class="datepickerDays">',
             '<tr>',
-              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[0].days[6].week%></td>',
               '<td class="<%=weeks[0].days[0].classname%>"><a href="#"><span><%=weeks[0].days[0].text%></span></a></td>',
               '<td class="<%=weeks[0].days[1].classname%>"><a href="#"><span><%=weeks[0].days[1].text%></span></a></td>',
               '<td class="<%=weeks[0].days[2].classname%>"><a href="#"><span><%=weeks[0].days[2].text%></span></a></td>',
@@ -67,7 +64,6 @@
               '<td class="<%=weeks[0].days[6].classname%>"><a href="#"><span><%=weeks[0].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
-              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[1].days[6].week%></td>',
               '<td class="<%=weeks[1].days[0].classname%>"><a href="#"><span><%=weeks[1].days[0].text%></span></a></td>',
               '<td class="<%=weeks[1].days[1].classname%>"><a href="#"><span><%=weeks[1].days[1].text%></span></a></td>',
               '<td class="<%=weeks[1].days[2].classname%>"><a href="#"><span><%=weeks[1].days[2].text%></span></a></td>',
@@ -77,7 +73,6 @@
               '<td class="<%=weeks[1].days[6].classname%>"><a href="#"><span><%=weeks[1].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
-              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[2].days[6].week%></td>',
               '<td class="<%=weeks[2].days[0].classname%>"><a href="#"><span><%=weeks[2].days[0].text%></span></a></td>',
               '<td class="<%=weeks[2].days[1].classname%>"><a href="#"><span><%=weeks[2].days[1].text%></span></a></td>',
               '<td class="<%=weeks[2].days[2].classname%>"><a href="#"><span><%=weeks[2].days[2].text%></span></a></td>',
@@ -87,7 +82,6 @@
               '<td class="<%=weeks[2].days[6].classname%>"><a href="#"><span><%=weeks[2].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
-              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[3].days[6].week%></td>',
               '<td class="<%=weeks[3].days[0].classname%>"><a href="#"><span><%=weeks[3].days[0].text%></span></a></td>',
               '<td class="<%=weeks[3].days[1].classname%>"><a href="#"><span><%=weeks[3].days[1].text%></span></a></td>',
               '<td class="<%=weeks[3].days[2].classname%>"><a href="#"><span><%=weeks[3].days[2].text%></span></a></td>',
@@ -97,7 +91,6 @@
               '<td class="<%=weeks[3].days[6].classname%>"><a href="#"><span><%=weeks[3].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
-              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[4].days[6].week%></td>',
               '<td class="<%=weeks[4].days[0].classname%>"><a href="#"><span><%=weeks[4].days[0].text%></span></a></td>',
               '<td class="<%=weeks[4].days[1].classname%>"><a href="#"><span><%=weeks[4].days[1].text%></span></a></td>',
               '<td class="<%=weeks[4].days[2].classname%>"><a href="#"><span><%=weeks[4].days[2].text%></span></a></td>',
@@ -107,7 +100,6 @@
               '<td class="<%=weeks[4].days[6].classname%>"><a href="#"><span><%=weeks[4].days[6].text%></span></a></td>',
             '</tr>',
             '<tr>',
-              '<td class="weekNumber weekHidden datepickerDisabled"><%=weeks[5].days[6].week%></td>',
               '<td class="<%=weeks[5].days[0].classname%>"><a href="#"><span><%=weeks[5].days[0].text%></span></a></td>',
               '<td class="<%=weeks[5].days[1].classname%>"><a href="#"><span><%=weeks[5].days[1].text%></span></a></td>',
               '<td class="<%=weeks[5].days[2].classname%>"><a href="#"><span><%=weeks[5].days[2].text%></span></a></td>',
@@ -142,11 +134,6 @@
         ]
       },
       defaults = {
-        /**
-         * Whether or not to use broadcast calendar mode
-         * Defaults as false
-         */
-        broadcastMode: false,
         /**
          * The currently selected date(s).  This can be: a single date, an array 
          * of two dates (sets a range when 'mode' is 'range'), or an array of
@@ -395,7 +382,7 @@
             }
 
             //If we want to use the broadcast calendar
-            if(options.broadcastMode) {
+            if(options.mode == 'broadcast') {
               if((date.getMonth() < options.current.getMonth() && date.getFullYear() == options.current.getFullYear()) || date.getFullYear() < options.current.getFullYear()) {
                 if(data.weeks[indic].days[indic2].classname.indexOf('datepickerNotInMonth') !== -1) {
                   data.weeks[indic].days[indic2].classname.splice(data.weeks[indic].days[indic2].classname.indexOf('datepickerNotInMonth'), 1);
@@ -427,7 +414,7 @@
         }
 
         //If we're using a broadcast calendar hide any empty rows that we don't want to see
-        if(options.broadcastMode) {
+        if(options.mode === 'broadcast') {
           //Show the hidden week header cells
           $(el).find('th.weekHidden').removeClass('weekHidden');
           var row = 0;
@@ -640,8 +627,8 @@
                     options.lastSel = !options.lastSel;
                     changedRange = !options.lastSel;
                     break;
+                  case 'broadcast':
                   default:
-                    console.log(tmp);
                     options.date = tmp.valueOf();
                     break;
                 }
@@ -678,7 +665,7 @@
        */
       prepareDate = function (options) {
         var dates = null;
-        if (options.mode == 'single') {
+        if (options.mode == 'single' || options.mode == 'broadcast') {
           if(options.date) dates = new Date(options.date);
         } else {
           dates = new Array();
@@ -815,12 +802,12 @@
        */
       normalizeDate = function (mode, date) {
         // if range/multi mode, make sure that the current date value is at least an empty array
-        if(mode != 'single' && !date) date = [];
+        if(mode != 'single' && mode != 'broadcast' && !date) date = [];
         
         // if we have a selected date and not a null or empty array
         if(date && (!$.isArray(date) || date.length > 0)) {
             // Create a standardized date depending on the calendar mode
-            if (mode != 'single') {
+            if (mode != 'single' && mode != 'broadcast') {
               if (!$.isArray(date)) {
                 date = [((new Date(date)).setHours(0,0,0,0)).valueOf()];
                 if (mode == 'range') {
@@ -838,7 +825,7 @@
                 }
               }
             } else {
-              // mode is single, convert date object into a timestamp
+              // mode is single or broadcast, convert date object into a timestamp
               date = ((new Date(date)).setHours(0,0,0,0)).valueOf();
             }
             // at this point date is either a timestamp at hour zero 
@@ -863,7 +850,7 @@
         options = $.extend({}, defaults, options||{});
         extendDate(options.locale);
         options.calendars = Math.max(1, parseInt(options.calendars,10)||1);
-        options.mode = /single|multiple|range/.test(options.mode) ? options.mode : 'single';
+        options.mode = /single|broadcast|multiple|range/.test(options.mode) ? options.mode : 'single';
         
         return this.each(function(){
           if (!$(this).data('datepicker')) {
@@ -980,7 +967,7 @@
             options.date = normalizeDate(options.mode, date);
             
             if (shiftTo) {
-              options.current = new Date(options.mode != 'single' ? options.date[0] : options.date);
+              options.current = new Date(options.mode != 'single' && options.mode != 'broadcast' ? options.date[0] : options.date);
             }
             fill(cal.get(0));
           }
@@ -993,7 +980,7 @@
        * @return array where the first element is the selected date(s)  When calendar mode  is 'single' this
        *        is a single date object, or null if no date is selected.  When calendar mode is 'range', this is an array containing 
        *        a 'from' and 'to' date objects, or the empty array if no date range is selected.  When calendar mode is 'multiple' this
-       *       	is an array of Date objects, or the empty array if no date is selected.
+       *        is an array of Date objects, or the empty array if no date is selected.
        *        The second element is the HTMLElement that DatePicker was invoked upon
        * 
        * @see DatePickerGetDate()
@@ -1014,7 +1001,7 @@
           if ($(this).data('datepickerId')) {
             var cal = $('#' + $(this).data('datepickerId'));
             var options = cal.data('datepicker');
-            if (options.mode == 'single') {
+            if (options.mode == 'single' || options.mode == 'broadcast') {
               options.date = null;
             } else {
               options.date = [];
@@ -1045,7 +1032,7 @@
         if ($(this).data('datepickerId')) {
             var cal = $('#' + $(this).data('datepickerId'));
             var options = cal.data('datepicker');
-            options.broadcastMode = mode;
+            options.mode = mode;
             fill(cal);
             layout(cal);
         }
