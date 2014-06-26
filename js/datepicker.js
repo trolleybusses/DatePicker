@@ -493,15 +493,17 @@
           options.extraWidth = divs.get(2).offsetWidth + divs.get(3).offsetWidth;     // widths from left/right borders
         }
         var tbl = cal.find('table:first').get(0);
-        var width = tbl.offsetWidth;
-        var height = tbl.offsetHeight;
-        cal.css({
-          width: width + options.extraWidth + 'px',
-          height: height + options.extraHeight + 'px'
-        }).find('div.datepickerContainer').css({
-          width: width + 'px',
-          height: height + 'px'
-        });
+        if(tbl) {
+          var width = tbl.offsetWidth;
+          var height = tbl.offsetHeight;
+          cal.css({
+            width: width + options.extraWidth + 'px',
+            height: height + options.extraHeight + 'px'
+          }).find('div.datepickerContainer').css({
+            width: width + 'px',
+            height: height + 'px'
+          });
+        }
       },
       
       /**
